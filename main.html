@@ -1,1 +1,110 @@
 
+<!DOCTYPE html>
+<!-- Hi! -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ao Oni Score Calculator</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('calculator')">Calculator</button>
+            <button class="tab-btn" onclick="switchTab('about')">About Calculation</button>
+        </div>
+
+        <!-- Calculator Tab -->
+        <div id="calculator" class="tab-content active">
+            <h1>Ao Oni Score Calculator</h1>
+            
+            <div class="input-group">
+                <label>Game Mode:</label>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="mode" value="Normal" checked> Normal
+                    </label>
+                    <label>
+                        <input type="radio" name="mode" value="Roguelike"> Roguelike
+                    </label>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Steps:</label>
+                <input type="number" id="steps" value="3000" min="0">
+            </div>
+
+            <div class="input-group">
+                <label>Death Count:</label>
+                <input type="number" id="deaths" value="0" min="0">
+            </div>
+
+            <div class="input-group">
+                <label>Time Format:</label>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="time-format" value="seconds" checked onchange="toggleTimeFormat()"> Seconds
+                    </label>
+                    <label>
+                        <input type="radio" name="time-format" value="hms" onchange="toggleTimeFormat()"> HH:MM:SS
+                    </label>
+                </div>
+            </div>
+
+            <div id="time-seconds" class="input-group">
+                <label>Playtime (seconds):</label>
+                <input type="number" id="seconds" value="1200" min="0">
+            </div>
+
+            <div id="time-hms" class="input-group" style="display: none;">
+                <label>Playtime:</label>
+                <div class="time-inputs">
+                    <input type="number" id="hours" placeholder="Hours" min="0" value="0">
+                    <input type="number" id="minutes" placeholder="Minutes" min="0" max="59" value="20">
+                    <input type="number" id="seconds_hms" placeholder="Seconds" min="0" max="59" value="0">
+                </div>
+            </div>
+
+            <button class="calculate-btn" onclick="calculate()">Calculate Score</button>
+
+            <div class="results" id="results" style="display: none;">
+                <h2>Results</h2>
+                <div id="score">Score: 0</div>
+                <div id="rank" class="rank"></div>
+                
+                <div class="breakdown">
+                    <h3>Breakdown</h3>
+                    <div id="step-value">Step Value: 0</div>
+                    <div id="dead-value">Dead Value: 0</div>
+                    <div id="playtime-score">Playtime Score: 0</div>
+                    <div id="playtime-coeff">Playtime Coefficient: 0</div>
+                </div>
+
+                <h3>Rank Thresholds</h3>
+                <table id="thresholds">
+                    <tr><th>Rank</th><th>Score Threshold</th></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- About Tab -->
+        <div id="about" class="tab-content">
+            <div id="about-content"></div>
+        </div>
+    </div>
+
+    <script src="js/constants.js"></script>
+    <script src="js/calculator.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        // Load about content
+        fetch('content/about.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('about-content').innerHTML = data;
+            });
+    </script>
+</body>
+</html>
