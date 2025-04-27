@@ -14,6 +14,10 @@ A web-based application for calculating scores in the game Ao Oni, based on the 
 - **Responsive Design**: Works on desktop and mobile devices
 - **Documentation**: Built-in explanation of the scoring algorithm
 
-run locally:
+## Demo
+
+Try the calculator [here](https://updownleftrightyt.github.io/Ao-oni-Score-Calculator/)
+
+Or run locally:
 1. Clone the repository
 2. Open `index.html` in a web browser
