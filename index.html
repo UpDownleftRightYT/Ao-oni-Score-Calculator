@@ -91,7 +91,113 @@
 
         <!-- About Tab -->
         <div id="about" class="tab-content">
-            <div id="about-content"></div>
+            <div id="about-content">
+                <h2>How the Score is Calculated</h2>
+                <p>The score is computed using the original game's algorithm with the following components:</p>
+                
+                <h3>1. Step Value</h3>
+                <pre>Step Value = (10000 - Steps) × Step Multiplier</pre>
+                
+                <p>Where the Step Multiplier depends on how many steps you took:</p>
+                
+                <h4>Normal Mode:</h4>
+                <ul>
+                    <li>Steps &lt; 3200: Multiplier = 7</li>
+                    <li>Steps &lt; 3500: Multiplier = 6</li>
+                    <li>Steps &lt; 4000: Multiplier = 5</li>
+                    <li>Steps &lt; 4500: Multiplier = 4</li>
+                    <li>Steps &lt; 5000: Multiplier = 3</li>
+                    <li>Steps ≥ 5000: Multiplier = 1, and value is capped at (10000 - 5000)</li>
+                </ul>
+                
+                <h4>Roguelike Mode:</h4>
+                <ul>
+                    <li>Steps &lt; 601: Multiplier = 7</li>
+                    <li>Steps &lt; 801: Multiplier = 6</li>
+                    <li>Steps &lt; 1001: Multiplier = 5</li>
+                    <li>Steps &lt; 2001: Multiplier = 3</li>
+                    <li>Steps ≥ 2001: Multiplier = 1, and value is capped at (10000 - 2001)</li>
+                </ul>
+                
+                <h3>2. Dead Value</h3>
+                <pre>Dead Value = (Base - Dead Count) × Death Multiplier</pre>
+                
+                <p>Where Base is 100 for Normal mode and 1000 for Roguelike mode.</p>
+                
+                <p>The Death Multiplier depends on deaths:</p>
+                <ul>
+                    <li>0 deaths: Multiplier = 25</li>
+                    <li>&lt; 2 deaths: Multiplier = 15</li>
+                    <li>&lt; 3 deaths: Multiplier = 10</li>
+                    <li>&lt; 6 deaths: Multiplier = 7</li>
+                    <li>&lt; 11 deaths: Multiplier = 5</li>
+                    <li>&lt; 20 deaths: Multiplier = 3</li>
+                    <li>≥ 20 deaths: Multiplier = 1, and value is capped at (Base - 20)</li>
+                </ul>
+                
+                <h3>3. Playtime Score</h3>
+                <pre>Playtime Score = Playtime Base - Min(Playtime, Max Threshold)</pre>
+                
+                <p>Where Playtime Base is 10000 for both modes.<br>
+                Max Threshold is 5400 seconds for Normal mode and 2700 seconds for Roguelike mode.</p>
+                
+                <h3>4. Playtime Coefficient</h3>
+                <p>This is a multiplier applied to the entire score, based on how quickly you completed the game:</p>
+                
+                <h4>Normal Mode:</h4>
+                <ul>
+                    <li>&lt; 1200 seconds: Coefficient = 12</li>
+                    <li>&lt; 1500 seconds: Coefficient = 11</li>
+                    <li>&lt; 1800 seconds: Coefficient = 10</li>
+                    <li>&lt; 2200 seconds: Coefficient = 8</li>
+                    <li>&lt; 2700 seconds: Coefficient = 7</li>
+                    <li>&lt; 3600 seconds: Coefficient = 5</li>
+                    <li>&lt; 5400 seconds: Coefficient = 3</li>
+                    <li>≥ 5400 seconds: Coefficient = 1</li>
+                </ul>
+                
+                <h4>Roguelike Mode:</h4>
+                <ul>
+                    <li>&lt; 241 seconds: Coefficient = 12</li>
+                    <li>&lt; 481 seconds: Coefficient = 10</li>
+                    <li>&lt; 601 seconds: Coefficient = 8</li>
+                    <li>&lt; 1500 seconds: Coefficient = 7</li>
+                    <li>&lt; 1800 seconds: Coefficient = 5</li>
+                    <li>&lt; 2700 seconds: Coefficient = 3</li>
+                    <li>≥ 2700 seconds: Coefficient = 1</li>
+                </ul>
+                
+                <h3>Final Formula</h3>
+                <pre>Final Score = (Step Value + Dead Value + Playtime Score) × Playtime Coefficient</pre>
+                
+                <h3>Rank Thresholds</h3>
+                
+                <h4>Normal Mode:</h4>
+                <ul>
+                    <li>S Rank: Score > 449,999</li>
+                    <li>A Rank: Score > 319,999</li>
+                    <li>B Rank: Score > 249,999</li>
+                    <li>C Rank: Score > 119,999</li>
+                    <li>D Rank: Score > 29,999</li>
+                    <li>E Rank: Score ≤ 29,999</li>
+                </ul>
+                
+                <h4>Roguelike Mode:</h4>
+                <ul>
+                    <li>S Rank: Score > 599,999</li>
+                    <li>A Rank: Score > 499,999</li>
+                    <li>B Rank: Score > 399,999</li>
+                    <li>C Rank: Score > 299,999</li>
+                    <li>D Rank: Score > 199,999</li>
+                    <li>E Rank: Score ≤ 199,999</li>
+                </ul>
+                
+                <h3>Game Modes</h3>
+                <ul>
+                    <li><b>Normal</b> - The standard game mode with balanced scoring thresholds.</li>
+                    <li><b>Roguelike</b> - A more challenging mode with different scoring parameters.</li>
+                </ul>
+            </div>
         </div>
     </div>
 
